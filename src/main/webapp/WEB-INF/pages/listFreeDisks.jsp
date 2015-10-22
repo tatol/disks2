@@ -36,5 +36,6 @@
         </c:forEach>
     </table>
 </c:if>
+<h3><a href="/login/listTakenDisksByUser">Взятые диски</a></h3>
 </body>
 </html>

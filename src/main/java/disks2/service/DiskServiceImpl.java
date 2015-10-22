@@ -25,4 +25,8 @@ public class DiskServiceImpl implements DiskService {
     {
         return diskDAO.listFreeDisks();
     }
+    @Transactional
+    public List<Disk> listTakenDisksByUser(Integer userId) {
+        return diskDAO.listTakenDisksByUser(userId);
+    }
 }

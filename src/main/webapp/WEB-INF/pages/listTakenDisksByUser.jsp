@@ -18,20 +18,20 @@
 </tr>
 </head>
 <body>
-<h2>Список своих дисков</h2>
+<h2>Список дисков, взятых пользователем</h2>
 
 
-<c:if  test="${!empty listOwnDisks}">
+<c:if  test="${!empty listTakenDisksFromUser}">
 
   <table border="1px" cellpadding="8px" class="data">
     <tr>
       <th>ID</th>
       <th>disk</th>
     </tr>
-    <c:forEach items="${listOwnDisks}" var="listOwnDisks">
+    <c:forEach items="${listTakenDisksFromUser}" var="listTakenDisksFromUser">
       <tr>
-        <td>${listOwnDisks.id}</td>
-        <td>${listOwnDisks.name}</td>
+        <td>${listTakenDisksFromUser.id}</td>
+        <td>${listTakenDisksFromUser.name}</td>
       </tr>
     </c:forEach>
   </table>

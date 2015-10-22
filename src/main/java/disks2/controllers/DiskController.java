@@ -51,4 +51,10 @@ public class DiskController {
         model.put("listFreeDisks", diskService.listFreeDisks());
         return new ModelAndView("listFreeDisks", model);
     }
+    @RequestMapping(value = "/login/listTakenDisksByUser")
+    public ModelAndView listTakenDisksByUser() {
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("listTakenDisksByUser", diskService.listTakenDisksByUser(currentUserId));
+        return new ModelAndView("listTakenDisksByUser", model);
+    }
 }
