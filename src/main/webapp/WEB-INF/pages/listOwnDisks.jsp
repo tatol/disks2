@@ -28,10 +28,11 @@
       <th>ID</th>
       <th>disk</th>
     </tr>
-    <c:forEach items="${listOwnDisks}" var="listOwnDisks">
+    <c:forEach items="${listOwnDisks}" var="own">
       <tr>
-        <td>${listOwnDisks.id}</td>
-        <td>${listOwnDisks.name}</td>
+        <td>${own.id}</td>
+        <td>${own.name}</td>
+        <td><a href="${own.id}/returnOwnDisk">delete</a></td>
       </tr>
     </c:forEach>
   </table>

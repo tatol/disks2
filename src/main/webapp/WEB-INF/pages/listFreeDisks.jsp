@@ -28,10 +28,30 @@
             <th>ID</th>
             <th>disk</th>
         </tr>
-        <c:forEach items="${listFreeDisks}" var="listFreeDisks">
+        <c:forEach items="${listFreeDisks}" var="free">
             <tr>
-                <td>${listFreeDisks.id}</td>
-                <td>${listFreeDisks.name}</td>
+                <td>${free.id}</td>
+                <td>${free.name}</td>
+                <td><a href="${free.id}/takeFreeDisk">взять</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+<h2>Список свободных дисков всех пользователей</h2>
+
+<c:if  test="${!empty listOwnDisksFromAllUsers}">
+
+    <table border="1px" cellpadding="8px" class="data">
+        <tr>
+            <th>diskID</th>
+            <th>disk</th>
+            <th>user</th>
+        </tr>
+        <c:forEach items="${listOwnDisksFromAllUsers}" var="allOwn">
+            <tr>
+                <td>${allOwn.disk.id}</td>
+                <td>${allOwn.disk.name}</td>
+                <td>${allOwn.user.login}</td>
             </tr>
         </c:forEach>
     </table>

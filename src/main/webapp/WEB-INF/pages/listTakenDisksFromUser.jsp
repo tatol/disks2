@@ -6,7 +6,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>Disks2</title>
+  <title>Disks</title>
 </head>
 <tr>
 
@@ -18,24 +18,23 @@
 </tr>
 </head>
 <body>
-<h2>Список дисков, взятых пользователем</h2>
+<h2>Список дисков взятых у пользователя</h2>
 
 
-<c:if  test="${!empty listTakenDisksByUser}">
+<c:if  test="${!empty listTakenDisksFromUser}">
 
   <table border="1px" cellpadding="8px" class="data">
     <tr>
       <th>ID</th>
       <th>disk</th>
     </tr>
-    <c:forEach items="${listTakenDisksByUser}" var="takenByUser">
+    <c:forEach items="${listTakenDisksFromUser}" var="takenFromUser">
       <tr>
-        <td>${takenByUser.id}</td>
-        <td>${takenByUser.name}</td>
+        <td>${takenFromUser.id}</td>
+        <td>${takenFromUser.name}</td>
       </tr>
     </c:forEach>
   </table>
 </c:if>
-<h3><a href="/login/listTakenDisksFromUser">Диски взятые у пользователя</a></h3>
 </body>
 </html>

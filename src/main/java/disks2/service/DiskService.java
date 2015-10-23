@@ -11,4 +11,5 @@ public interface DiskService {
     List<Disk> listOwnDisks(Integer userId);
     List<Disk> listFreeDisks();
     List<Disk> listTakenDisksByUser(Integer userId);
+    List<Disk> listTakenDisksFromUser(Integer userId);
 }

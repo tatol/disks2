@@ -1,6 +1,8 @@
 package disks2.dao;
 
 import disks2.domain.Disk;
+import disks2.domain.TakenItem;
+import disks2.domain.User;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -47,6 +49,19 @@ public class DiskDAOImpl implements DiskDAO {
         List<Disk> result = new ArrayList<Disk>();
         Session session = sessionFactory.openSession();
         String SQL_QUERY ="Select t.disk from User as u join u.takenList as t where u.id=? and t.fromUser is not null";
+        Query query = session.createQuery(SQL_QUERY);
+        query.setParameter(0,userId);
+        for(Object o : query.list()) {
+            result.add((Disk) o);
+        }
+        session.close();
+        return result;
+    }
+
+    public List<Disk> listTakenDisksFromUser(Integer userId) {
+        List<Disk> result = new ArrayList<Disk>();
+        Session session = sessionFactory.openSession();
+        String SQL_QUERY ="Select t.disk from User as u join u.takenList as t where t.fromUser.id =?";
         Query query = session.createQuery(SQL_QUERY);
         query.setParameter(0,userId);
         for(Object o : query.list()) {

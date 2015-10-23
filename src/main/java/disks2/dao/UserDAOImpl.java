@@ -1,5 +1,6 @@
 package disks2.dao;
 
+import disks2.domain.User;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
