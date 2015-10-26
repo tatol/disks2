@@ -73,4 +73,30 @@ public class TakenItemDAOImpl implements TakenItemDAO {
         session.close();
         return result;
     }
+
+    public List<TakenItem> listTakenDisksByUser(Integer userId) {
+        List<TakenItem> result = new ArrayList<TakenItem>();
+        org.hibernate.classic.Session session = sessionFactory.openSession();
+        String SQL_QUERY ="from TakenItem as t where t.user.id=? and t.fromUser.id is not null";
+        Query query = session.createQuery(SQL_QUERY);
+        query.setParameter(0,userId);
+        for(Object o : query.list()) {
+            result.add((TakenItem) o);
+        }
+        session.close();
+        return result;
+    }
+
+    public List<TakenItem> listTakenDisksFromUser(Integer userId) {
+        List<TakenItem> result = new ArrayList<TakenItem>();
+        org.hibernate.classic.Session session = sessionFactory.openSession();
+        String SQL_QUERY ="from TakenItem as t where t.fromUser.id=?";
+        Query query = session.createQuery(SQL_QUERY);
+        query.setParameter(0,userId);
+        for(Object o : query.list()) {
+            result.add((TakenItem) o);
+        }
+        session.close();
+        return result;
+    }
 }

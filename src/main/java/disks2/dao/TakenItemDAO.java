@@ -15,4 +15,6 @@ public interface TakenItemDAO {
     void takeFreeDisk(Integer userId, Integer diskId);
     void returnOwnDisk(Integer userId, Integer diskId);
     List<TakenItem> listOwnDisksFromAllUsers(Integer currentUserId);
+    List<TakenItem> listTakenDisksFromUser(Integer userId);
+    List<TakenItem> listTakenDisksByUser(Integer userId);
 }

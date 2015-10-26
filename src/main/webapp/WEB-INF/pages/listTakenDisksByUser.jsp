@@ -27,11 +27,13 @@
     <tr>
       <th>ID</th>
       <th>disk</th>
+      <th>from</th>
     </tr>
     <c:forEach items="${listTakenDisksByUser}" var="takenByUser">
       <tr>
-        <td>${takenByUser.id}</td>
-        <td>${takenByUser.name}</td>
+        <td>${takenByUser.disk.id}</td>
+        <td>${takenByUser.disk.name}</td>
+        <td>${takenByUser.fromUser.login}</td>
       </tr>
     </c:forEach>
   </table>

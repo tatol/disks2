@@ -60,13 +60,13 @@ public class DiskController {
     @RequestMapping(value = "/login/listTakenDisksByUser")
     public ModelAndView listTakenDisksByUser() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("listTakenDisksByUser", diskService.listTakenDisksByUser(currentUserId));
+        model.put("listTakenDisksByUser", takenItemService.listTakenDisksByUser(currentUserId));
         return new ModelAndView("listTakenDisksByUser", model);
     }
     @RequestMapping(value = "/login/listTakenDisksFromUser")
     public ModelAndView listTakenDisksFromUser() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("listTakenDisksFromUser", diskService.listTakenDisksFromUser(currentUserId));
+        model.put("listTakenDisksFromUser", takenItemService.listTakenDisksFromUser(currentUserId));
         return new ModelAndView("listTakenDisksFromUser", model);
     }
     @RequestMapping(value="*/{id}/takeFreeDisk")

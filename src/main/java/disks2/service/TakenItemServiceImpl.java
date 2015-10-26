@@ -28,4 +28,12 @@ public class TakenItemServiceImpl implements TakenItemService {
     public List<TakenItem> listOwnDisksFromAllUsers(Integer currentUserId) {
         return takenItemDAO.listOwnDisksFromAllUsers(currentUserId);
     }
+    @Transactional
+    public List<TakenItem> listTakenDisksByUser(Integer userId) {
+        return takenItemDAO.listTakenDisksByUser(userId);
+    }
+    @Transactional
+    public List<TakenItem> listTakenDisksFromUser(Integer userId) {
+        return takenItemDAO.listTakenDisksFromUser(userId);
+    }
 }
