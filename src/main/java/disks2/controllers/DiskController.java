@@ -75,6 +75,18 @@ public class DiskController {
         takenItemService.takeFreeDisk(currentUserId, id);
         return new ModelAndView("redirect:/login/listFreeDisks");
     }
+    @RequestMapping(value="*/{diskId}/{fromId}/takeFreeDiskFromUser")
+    public ModelAndView takeFreeDiskFromUser(@PathVariable Integer diskId,@PathVariable Integer fromId)
+    {
+        takenItemService.takeFreeDiskFromUser(currentUserId,diskId,fromId);
+        return new ModelAndView("redirect:/login/listFreeDisks");
+    }
+    @RequestMapping(value="*/{diskId}/{fromId}/returnDiskToUser")
+    public ModelAndView returnDiskToUser(@PathVariable Integer diskId,@PathVariable Integer fromId)
+    {
+        takenItemService.returnDiskToUser(currentUserId,diskId,fromId);
+        return new ModelAndView("redirect:/login/listTakenDisksByUser");
+    }
     @RequestMapping(value="*/{id}/returnOwnDisk")
     public ModelAndView returnOwnDisk(@PathVariable Integer id)
     {

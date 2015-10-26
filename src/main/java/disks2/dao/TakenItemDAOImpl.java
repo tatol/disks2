@@ -50,6 +50,38 @@ public class TakenItemDAOImpl implements TakenItemDAO {
         session.close();
     }
 
+    public void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId) {
+        Session session = sessionFactory.openSession();
+        String SQL_QUERY ="from TakenItem as t where t.user.id=? and t.disk.id=?";
+        Query query = session.createQuery(SQL_QUERY);
+        query.setParameter(0,fromId);
+        query.setParameter(1,diskId);
+        TakenItem deleteResult = (TakenItem)query.uniqueResult();
+        TakenItem addResult = new TakenItem();
+        addResult.setDisk(getDiskById(diskId));
+        addResult.setUser(getUserById(userId));
+        addResult.setFromUser(getUserById(fromId));
+        session.save(addResult);
+        session.close();
+        sessionFactory.getCurrentSession().delete(deleteResult);
+    }
+
+    public void returnDiskToUser(Integer userId, Integer diskId, Integer fromId) {
+        Session session = sessionFactory.openSession();
+        String SQL_QUERY ="from TakenItem as t where t.user.id=? and t.disk.id=?";
+        Query query = session.createQuery(SQL_QUERY);
+        query.setParameter(0,userId);
+        query.setParameter(1,diskId);
+        TakenItem deleteResult = (TakenItem)query.uniqueResult();
+        TakenItem addResult = new TakenItem();
+        addResult.setDisk(getDiskById(diskId));
+        addResult.setUser(getUserById(fromId));
+        addResult.setFromUser(null);
+        session.save(addResult);
+        session.close();
+        sessionFactory.getCurrentSession().delete(deleteResult);
+    }
+
     public void returnOwnDisk(Integer userId, Integer diskId) {
         Session session = sessionFactory.openSession();
         String SQL_QUERY ="from TakenItem as t where t.user.id=? and t.disk.id=?";

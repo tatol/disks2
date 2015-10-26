@@ -13,6 +13,8 @@ public interface TakenItemDAO {
     Disk getDiskById(Integer diskId);
     User getUserById(Integer userId);
     void takeFreeDisk(Integer userId, Integer diskId);
+    void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId);
+    void returnDiskToUser(Integer userId, Integer diskId, Integer fromId);
     void returnOwnDisk(Integer userId, Integer diskId);
     List<TakenItem> listOwnDisksFromAllUsers(Integer currentUserId);
     List<TakenItem> listTakenDisksFromUser(Integer userId);

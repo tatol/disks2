@@ -28,12 +28,14 @@
       <th>ID</th>
       <th>disk</th>
       <th>from</th>
+      <th>return</th>
     </tr>
     <c:forEach items="${listTakenDisksByUser}" var="takenByUser">
       <tr>
         <td>${takenByUser.disk.id}</td>
         <td>${takenByUser.disk.name}</td>
         <td>${takenByUser.fromUser.login}</td>
+        <td><a href="${takenByUser.disk.id}/${takenByUser.fromUser.id}/returnDiskToUser">взять</a></td>
       </tr>
     </c:forEach>
   </table>

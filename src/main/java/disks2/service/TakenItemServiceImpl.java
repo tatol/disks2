@@ -25,6 +25,15 @@ public class TakenItemServiceImpl implements TakenItemService {
         takenItemDAO.returnOwnDisk(userId,diskId);
     }
     @Transactional
+    public void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId) {
+        takenItemDAO.takeFreeDiskFromUser(userId,diskId,fromId);
+    }
+    @Transactional
+    public void returnDiskToUser(Integer userId, Integer diskId, Integer fromId) {
+        takenItemDAO.returnDiskToUser(userId,diskId,fromId);
+    }
+
+    @Transactional
     public List<TakenItem> listOwnDisksFromAllUsers(Integer currentUserId) {
         return takenItemDAO.listOwnDisksFromAllUsers(currentUserId);
     }

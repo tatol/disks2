@@ -10,6 +10,8 @@ import java.util.List;
 public interface TakenItemService {
     void takeFreeDisk(Integer userId, Integer diskId);
     void returnOwnDisk(Integer userId, Integer diskId);
+    void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId);
+    void returnDiskToUser(Integer userId, Integer diskId, Integer fromId);
     List<TakenItem> listOwnDisksFromAllUsers(Integer currentUserId);
     List<TakenItem> listTakenDisksByUser(Integer userId);
     List<TakenItem> listTakenDisksFromUser(Integer userId);
