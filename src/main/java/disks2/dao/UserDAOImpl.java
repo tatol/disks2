@@ -15,14 +15,14 @@ public class UserDAOImpl implements UserDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Integer getUserId(String userName, String userPassword) {
+    public User getUser(String userName, String userPassword){
         Session session = sessionFactory.openSession();
-        String SQL_QUERY = "Select id from User as o where o.login=? and o.password=?";
+        String SQL_QUERY = "from User as o where o.login=? and o.password=?";
         Query query = session.createQuery(SQL_QUERY);
         query.setParameter(0, userName);
         query.setParameter(1, userPassword);
-        Integer id = (Integer) query.uniqueResult();
+        User result = (User) query.uniqueResult();
         session.close();
-        return id;
+        return result;
     }
 }

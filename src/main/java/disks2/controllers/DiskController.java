@@ -1,5 +1,6 @@
 package disks2.controllers;
 
+import disks2.domain.User;
 import disks2.form.LoginForm;
 import disks2.service.DiskService;
 import disks2.service.TakenItemService;
@@ -28,7 +29,12 @@ public class DiskController {
     @Autowired
     private TakenItemService takenItemService;
 
-    private Integer currentUserId;
+    private User currentUser;
+
+    @RequestMapping(value = "/error")
+    public String error() {
+        return "/error";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginForm(Map model) {
@@ -37,60 +43,91 @@ public class DiskController {
         return "login";
     }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String processLoginForm(@Valid LoginForm loginForm, BindingResult result, Map model) {
-
-        currentUserId = userService.getUserId(loginForm.getLogin(), loginForm.getPassword());
-
-        return "redirect:/login/listOwnDisks";
+    public String processLoginForm(@Valid LoginForm loginForm) {
+        String result;
+        currentUser = userService.getUser(loginForm.getLogin(), loginForm.getPassword());
+        if (currentUser==null)
+        {
+            result=error();
+        }
+        else result="redirect:/login/listOwnDisks";
+        return result;
     }
 
     @RequestMapping(value = "/login/listOwnDisks")
     public ModelAndView listOwnDisks() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("listOwnDisks", diskService.listOwnDisks(currentUserId));
+        try {
+            model = new HashMap<String, Object>();
+            model.put("listOwnDisks", diskService.listOwnDisks(currentUser.getId()));
+        }
+        catch (NullPointerException e)
+        {
+            return new ModelAndView("error");
+        }
         return new ModelAndView("listOwnDisks", model);
     }
+
     @RequestMapping(value = "/login/listFreeDisks")
     public ModelAndView listFreeDisks() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("listFreeDisks", diskService.listFreeDisks());
-        model.put("listOwnDisksFromAllUsers", takenItemService.listOwnDisksFromAllUsers(currentUserId));
+        try {
+            model.put("listFreeDisks", diskService.listFreeDisks());
+            model.put("listOwnDisksFromAllUsers", takenItemService.listOwnDisksFromAllUsers(currentUser.getId()));
+        }
+        catch (NullPointerException e)
+        {
+            return new ModelAndView("error");
+        }
         return new ModelAndView("listFreeDisks", model);
     }
     @RequestMapping(value = "/login/listTakenDisksByUser")
     public ModelAndView listTakenDisksByUser() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("listTakenDisksByUser", takenItemService.listTakenDisksByUser(currentUserId));
+        try
+        {
+            model.put("listTakenDisksByUser", takenItemService.listTakenDisksByUser(currentUser.getId()));
+        }
+        catch (NullPointerException e)
+        {
+            return new ModelAndView("error");
+        }
         return new ModelAndView("listTakenDisksByUser", model);
     }
     @RequestMapping(value = "/login/listTakenDisksFromUser")
     public ModelAndView listTakenDisksFromUser() {
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("listTakenDisksFromUser", takenItemService.listTakenDisksFromUser(currentUserId));
+        try {
+            model.put("listTakenDisksFromUser", takenItemService.listTakenDisksFromUser(currentUser.getId()));
+        }
+        catch (NullPointerException e)
+        {
+            return new ModelAndView("error");
+        }
         return new ModelAndView("listTakenDisksFromUser", model);
     }
     @RequestMapping(value="*/{id}/takeFreeDisk")
     public ModelAndView takeFreeDisk(@PathVariable Integer id)
     {
-        takenItemService.takeFreeDisk(currentUserId, id);
+        takenItemService.takeFreeDisk(currentUser.getId(), id);
         return new ModelAndView("redirect:/login/listFreeDisks");
     }
     @RequestMapping(value="*/{diskId}/{fromId}/takeFreeDiskFromUser")
     public ModelAndView takeFreeDiskFromUser(@PathVariable Integer diskId,@PathVariable Integer fromId)
     {
-        takenItemService.takeFreeDiskFromUser(currentUserId,diskId,fromId);
+        takenItemService.takeFreeDiskFromUser(currentUser.getId(),diskId,fromId);
         return new ModelAndView("redirect:/login/listFreeDisks");
     }
     @RequestMapping(value="*/{diskId}/{fromId}/returnDiskToUser")
     public ModelAndView returnDiskToUser(@PathVariable Integer diskId,@PathVariable Integer fromId)
     {
-        takenItemService.returnDiskToUser(currentUserId,diskId,fromId);
+        takenItemService.returnDiskToUser(currentUser.getId(),diskId,fromId);
         return new ModelAndView("redirect:/login/listTakenDisksByUser");
     }
     @RequestMapping(value="*/{id}/returnOwnDisk")
     public ModelAndView returnOwnDisk(@PathVariable Integer id)
     {
-        takenItemService.returnOwnDisk(currentUserId, id);
+        takenItemService.returnOwnDisk(currentUser.getId(), id);
         return new ModelAndView("redirect:/login/listOwnDisks");
     }
 }

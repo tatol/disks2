@@ -13,21 +13,19 @@
 <form:form action="login"  commandName="loginForm">
   <table>
     <tr>
-      <td>User Name:<FONT color="red"><form:errors
-              path="login" /></FONT></td>
+      <td>User Name:</td>
     </tr>
     <tr>
       <td><form:input path="login" /></td>
     </tr>
     <tr>
-      <td>Password:<FONT color="red"><form:errors
-              path="password" /></FONT></td>
+      <td>Password:</td>
     </tr>
     <tr>
       <td><form:password path="password" /></td>
     </tr>
     <tr>
-      <td><input type="submit" value="Submit" /></td>
+      <td><input type="submit" value="войти" /></td>
     </tr>
   </table>
 </form:form>

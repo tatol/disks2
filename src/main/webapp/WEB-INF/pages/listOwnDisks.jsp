@@ -8,15 +8,6 @@
 
   <title>Disks2</title>
 </head>
-<tr>
-
-  <td background="pics/Pic4Back.jpg" valign="top">
-    <p>
-      <span style="color: #ffffff;"><%=request.getParameter("system_message")%></span>
-    </p>
-  </td>
-</tr>
-</head>
 <body>
 <h2>Список своих дисков</h2>
 
@@ -25,14 +16,14 @@
 
   <table border="1px" cellpadding="8px" class="data">
     <tr>
-      <th>ID</th>
+      <th>diskID</th>
       <th>disk</th>
     </tr>
     <c:forEach items="${listOwnDisks}" var="own">
       <tr>
         <td>${own.id}</td>
         <td>${own.name}</td>
-        <td><a href="${own.id}/returnOwnDisk">delete</a></td>
+        <td><a href="${own.id}/returnOwnDisk">вернуть</a></td>
       </tr>
     </c:forEach>
   </table>

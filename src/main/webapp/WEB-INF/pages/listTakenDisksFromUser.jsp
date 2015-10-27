@@ -8,15 +8,6 @@
 
   <title>Disks</title>
 </head>
-<tr>
-
-  <td background="pics/Pic4Back.jpg" valign="top">
-    <p>
-      <span style="color: #ffffff;"><%=request.getParameter("system_message")%></span>
-    </p>
-  </td>
-</tr>
-</head>
 <body>
 <h2>Список дисков взятых у пользователя</h2>
 
@@ -25,7 +16,7 @@
 
   <table border="1px" cellpadding="8px" class="data">
     <tr>
-      <th>ID</th>
+      <th>diskID</th>
       <th>disk</th>
       <th>who</th>
     </tr>

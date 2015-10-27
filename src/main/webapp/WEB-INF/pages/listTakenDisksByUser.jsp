@@ -8,15 +8,6 @@
 
   <title>Disks2</title>
 </head>
-<tr>
-
-  <td background="pics/Pic4Back.jpg" valign="top">
-    <p>
-      <span style="color: #ffffff;"><%=request.getParameter("system_message")%></span>
-    </p>
-  </td>
-</tr>
-</head>
 <body>
 <h2>Список дисков, взятых пользователем</h2>
 
@@ -25,7 +16,7 @@
 
   <table border="1px" cellpadding="8px" class="data">
     <tr>
-      <th>ID</th>
+      <th>diskID</th>
       <th>disk</th>
       <th>from</th>
       <th>return</th>
@@ -35,7 +26,7 @@
         <td>${takenByUser.disk.id}</td>
         <td>${takenByUser.disk.name}</td>
         <td>${takenByUser.fromUser.login}</td>
-        <td><a href="${takenByUser.disk.id}/${takenByUser.fromUser.id}/returnDiskToUser">взять</a></td>
+        <td><a href="${takenByUser.disk.id}/${takenByUser.fromUser.id}/returnDiskToUser">отдать</a></td>
       </tr>
     </c:forEach>
   </table>
