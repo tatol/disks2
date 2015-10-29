@@ -8,6 +8,6 @@ import java.util.List;
  * Created by adminvl on 21.10.2015.
  */
 public interface DiskDAO {
-    List<Disk> listOwnDisks(Integer userId);//список собственных(взятых из хранилища) дисков пользователя
-    List<Disk> listFreeDisks();//список дисков в общем хранилище
+    List<Disk> listOwnDisks(Integer userId);//СЃРїРёСЃРѕРє СЃРѕР±СЃС‚РІРµРЅРЅС‹С…(РІР·СЏС‚С‹С… РёР· С…СЂР°РЅРёР»РёС‰Р°) РґРёСЃРєРѕРІ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    List<Disk> listFreeDisks();//СЃРїРёСЃРѕРє РґРёСЃРєРѕРІ РІ РѕР±С‰РµРј С…СЂР°РЅРёР»РёС‰Рµ
 }

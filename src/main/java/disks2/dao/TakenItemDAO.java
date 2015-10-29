@@ -12,12 +12,12 @@ import java.util.List;
 public interface TakenItemDAO {
     Disk getDiskById(Integer diskId);
     User getUserById(Integer userId);
-    void takeFreeDisk(Integer userId, Integer diskId);//взять диск из общего хранилища
-    void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId);//взять диск у пользователя
-    void returnDiskToUser(Integer userId, Integer diskId, Integer fromId);//вернуть диск пользователю
-    void returnOwnDisk(Integer userId, Integer diskId);//вернуть диск в общее хранилище
-    //список свободных(взятых из общего хранилища) дисков всех пользователей, кроме текущего
+    void takeFreeDisk(Integer userId, Integer diskId);//РІР·СЏС‚СЊ РґРёСЃРє РёР· РѕР±С‰РµРіРѕ С…СЂР°РЅРёР»РёС‰Р°
+    void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId);//РІР·СЏС‚СЊ РґРёСЃРє Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    void returnDiskToUser(Integer userId, Integer diskId, Integer fromId);//РІРµСЂРЅСѓС‚СЊ РґРёСЃРє РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
+    void returnOwnDisk(Integer userId, Integer diskId);//РІРµСЂРЅСѓС‚СЊ РґРёСЃРє РІ РѕР±С‰РµРµ С…СЂР°РЅРёР»РёС‰Рµ
+    //СЃРїРёСЃРѕРє СЃРІРѕР±РѕРґРЅС‹С…(РІР·СЏС‚С‹С… РёР· РѕР±С‰РµРіРѕ С…СЂР°РЅРёР»РёС‰Р°) РґРёСЃРєРѕРІ РІСЃРµС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№, РєСЂРѕРјРµ С‚РµРєСѓС‰РµРіРѕ
     List<TakenItem> listOwnDisksFromAllUsers(Integer currentUserId);
-    List<TakenItem> listTakenDisksFromUser(Integer userId);//список дисков взятых у пользователя другими пользователями
-    List<TakenItem> listTakenDisksByUser(Integer userId);//список дисков взятых пользователем у других пользователей
+    List<TakenItem> listTakenDisksFromUser(Integer userId);//СЃРїРёСЃРѕРє РґРёСЃРєРѕРІ РІР·СЏС‚С‹С… Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґСЂСѓРіРёРјРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё
+    List<TakenItem> listTakenDisksByUser(Integer userId);//СЃРїРёСЃРѕРє РґРёСЃРєРѕРІ РІР·СЏС‚С‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј Сѓ РґСЂСѓРіРёС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 }
