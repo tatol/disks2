@@ -26,7 +26,7 @@ CREATE TABLE `disk` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,8 +35,33 @@ CREATE TABLE `disk` (
 
 LOCK TABLES `disk` WRITE;
 /*!40000 ALTER TABLE `disk` DISABLE KEYS */;
-INSERT INTO `disk` VALUES (1,'крестный отец'),(2,'воин'),(3,'маска'),(4,'крокодил данди'),(5,'Алладин'),(6,'Халк'),(7,'Терминатор'),(8,'мизери'),(9,'день сурка'),(10,'кошмар на улице вязов');
+INSERT INTO `disk` VALUES (1,'крестный отец'),(2,'воин'),(3,'маска'),(4,'крокодил Данди'),(5,'Алладин'),(6,'Халк'),(7,'Терминатор'),(8,'мизери'),(9,'день сурка'),(10,'кошмар на улице вязов');
 /*!40000 ALTER TABLE `disk` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `givenitem`
+--
+
+DROP TABLE IF EXISTS `givenitem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `givenitem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `diskid` int(11) NOT NULL,
+  `fromid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `givenitem`
+--
+
+LOCK TABLES `givenitem` WRITE;
+/*!40000 ALTER TABLE `givenitem` DISABLE KEYS */;
+INSERT INTO `givenitem` VALUES (2,5,2),(5,1,1);
+/*!40000 ALTER TABLE `givenitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -50,9 +75,8 @@ CREATE TABLE `takenitem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `diskid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
-  `fromid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +85,7 @@ CREATE TABLE `takenitem` (
 
 LOCK TABLES `takenitem` WRITE;
 /*!40000 ALTER TABLE `takenitem` DISABLE KEYS */;
-INSERT INTO `takenitem` VALUES (21,3,2,NULL),(23,1,2,1),(26,5,1,2),(27,2,1,NULL),(30,4,1,NULL),(33,10,2,NULL);
+INSERT INTO `takenitem` VALUES (23,1,2),(26,5,1),(33,10,2),(36,3,2),(37,4,1),(41,2,1);
 /*!40000 ALTER TABLE `takenitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,4 +123,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-27 12:55:33
+-- Dump completed on 2015-12-01 15:46:02

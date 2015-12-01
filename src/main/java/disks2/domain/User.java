@@ -20,16 +20,24 @@ public class User implements Serializable {
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<TakenItem> takenList;
+    private List<Disk> takenList;
 
     @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
-    private List<TakenItem> givenList;
+    private List<Disk> givenList;
 
-    public List<TakenItem> getGivenList() {
+    public List<Disk> getGivenList() {
         return givenList;
     }
 
-    public void setGivenList(List<TakenItem> givenList) {
+    public List<Disk> getTakenList() {
+        return takenList;
+    }
+
+    public void setTakenList(List<Disk> takenList) {
+        this.takenList = takenList;
+    }
+
+    public void setGivenList(List<Disk> givenList) {
         this.givenList = givenList;
     }
 
@@ -57,11 +65,4 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<TakenItem> getTakenList() {
-        return takenList;
-    }
-
-    public void setTakenList(List<TakenItem> takenList) {
-        this.takenList = takenList;
-    }
 }

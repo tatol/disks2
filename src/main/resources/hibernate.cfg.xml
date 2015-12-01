@@ -7,7 +7,6 @@
     <session-factory>
         <mapping class="disks2.domain.User" />
         <mapping class="disks2.domain.Disk" />
-        <mapping class="disks2.domain.TakenItem" />
     </session-factory>
 
 </hibernate-configuration>

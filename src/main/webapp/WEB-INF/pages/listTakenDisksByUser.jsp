@@ -23,10 +23,10 @@
     </tr>
     <c:forEach items="${listTakenDisksByUser}" var="takenByUser">
       <tr>
-        <td>${takenByUser.disk.id}</td>
-        <td>${takenByUser.disk.name}</td>
+        <td>${takenByUser.id}</td>
+        <td>${takenByUser.name}</td>
         <td>${takenByUser.fromUser.login}</td>
-        <td><a href="${takenByUser.disk.id}/${takenByUser.fromUser.id}/returnDiskToUser">отдать</a></td>
+        <td><a href="${takenByUser.id}/${takenByUser.fromUser.id}/returnDiskToUser">отдать</a></td>
       </tr>
     </c:forEach>
   </table>

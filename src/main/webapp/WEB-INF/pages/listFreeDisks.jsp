@@ -41,10 +41,10 @@
         </tr>
         <c:forEach items="${listOwnDisksFromAllUsers}" var="allOwn">
             <tr>
-                <td>${allOwn.disk.id}</td>
-                <td>${allOwn.disk.name}</td>
+                <td>${allOwn.id}</td>
+                <td>${allOwn.name}</td>
                 <td>${allOwn.user.login}</td>
-                <td><a href="${allOwn.disk.id}/${allOwn.user.id}/takeFreeDiskFromUser">взять</a></td>
+                <td><a href="${allOwn.id}/${allOwn.user.id}/takeFreeDiskFromUser">взять</a></td>
             </tr>
         </c:forEach>
     </table>

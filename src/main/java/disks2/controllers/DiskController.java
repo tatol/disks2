@@ -3,13 +3,10 @@ package disks2.controllers;
 import disks2.domain.User;
 import disks2.form.LoginForm;
 import disks2.service.DiskService;
-import disks2.service.TakenItemService;
 import disks2.service.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +23,6 @@ public class DiskController {
     private UserService userService;
     @Autowired
     private DiskService diskService;
-    @Autowired
-    private TakenItemService takenItemService;
 
     private User currentUser;
 
@@ -73,7 +68,7 @@ public class DiskController {
         Map<String, Object> model = new HashMap<String, Object>();
         try {
             model.put("listFreeDisks", diskService.listFreeDisks());
-            model.put("listOwnDisksFromAllUsers", takenItemService.listOwnDisksFromAllUsers(currentUser.getId()));
+            model.put("listOwnDisksFromAllUsers", diskService.listOwnDisksFromAllUsers(currentUser.getId()));
         }
         catch (NullPointerException e)
         {
@@ -86,7 +81,7 @@ public class DiskController {
         Map<String, Object> model = new HashMap<String, Object>();
         try
         {
-            model.put("listTakenDisksByUser", takenItemService.listTakenDisksByUser(currentUser.getId()));
+            model.put("listTakenDisksByUser", diskService.listTakenDisksByUser(currentUser.getId()));
         }
         catch (NullPointerException e)
         {
@@ -98,7 +93,7 @@ public class DiskController {
     public ModelAndView listTakenDisksFromUser() {
         Map<String, Object> model = new HashMap<String, Object>();
         try {
-            model.put("listTakenDisksFromUser", takenItemService.listTakenDisksFromUser(currentUser.getId()));
+            model.put("listTakenDisksFromUser", diskService.listTakenDisksFromUser(currentUser.getId()));
         }
         catch (NullPointerException e)
         {
@@ -109,25 +104,25 @@ public class DiskController {
     @RequestMapping(value="*/{id}/takeFreeDisk")
     public ModelAndView takeFreeDisk(@PathVariable Integer id)
     {
-        takenItemService.takeFreeDisk(currentUser.getId(), id);
+        diskService.takeFreeDisk(currentUser.getId(), id);
         return new ModelAndView("redirect:/login/listFreeDisks");
     }
     @RequestMapping(value="*/{diskId}/{fromId}/takeFreeDiskFromUser")
     public ModelAndView takeFreeDiskFromUser(@PathVariable Integer diskId,@PathVariable Integer fromId)
     {
-        takenItemService.takeFreeDiskFromUser(currentUser.getId(),diskId,fromId);
+        diskService.takeFreeDiskFromUser(currentUser.getId(),diskId,fromId);
         return new ModelAndView("redirect:/login/listFreeDisks");
     }
     @RequestMapping(value="*/{diskId}/{fromId}/returnDiskToUser")
     public ModelAndView returnDiskToUser(@PathVariable Integer diskId,@PathVariable Integer fromId)
     {
-        takenItemService.returnDiskToUser(currentUser.getId(),diskId,fromId);
+        diskService.returnDiskToUser(currentUser.getId(),diskId,fromId);
         return new ModelAndView("redirect:/login/listTakenDisksByUser");
     }
     @RequestMapping(value="*/{id}/returnOwnDisk")
     public ModelAndView returnOwnDisk(@PathVariable Integer id)
     {
-        takenItemService.returnOwnDisk(currentUser.getId(), id);
+        diskService.returnOwnDisk(currentUser.getId(), id);
         return new ModelAndView("redirect:/login/listOwnDisks");
     }
 }
