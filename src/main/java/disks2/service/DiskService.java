@@ -1,6 +1,7 @@
 package disks2.service;
 
 import disks2.domain.Disk;
+import disks2.domain.User;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public interface DiskService {
     void returnOwnDisk(Integer userId, Integer diskId);
     void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId);
     void returnDiskToUser(Integer userId, Integer diskId, Integer fromId);
+
     List<Disk> listOwnDisksFromAllUsers(Integer currentUserId);
     List<Disk> listTakenDisksByUser(Integer userId);
     List<Disk> listTakenDisksFromUser(Integer userId);

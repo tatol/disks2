@@ -26,7 +26,7 @@ CREATE TABLE `disk` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,9 +49,9 @@ DROP TABLE IF EXISTS `givenitem`;
 CREATE TABLE `givenitem` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `diskid` int(11) NOT NULL,
-  `fromid` int(11) DEFAULT NULL,
+  `fromid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `takenitem` (
   `diskid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +85,7 @@ CREATE TABLE `takenitem` (
 
 LOCK TABLES `takenitem` WRITE;
 /*!40000 ALTER TABLE `takenitem` DISABLE KEYS */;
-INSERT INTO `takenitem` VALUES (23,1,2),(26,5,1),(33,10,2),(36,3,2),(37,4,1),(41,2,1);
+INSERT INTO `takenitem` VALUES (23,1,2),(26,5,1),(36,3,2),(37,4,1),(41,2,1),(42,10,2);
 /*!40000 ALTER TABLE `takenitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,4 +123,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-01 15:46:02
+-- Dump completed on 2015-12-04 12:21:36

@@ -1,8 +1,9 @@
 package disks2.service;
 
-import disks2.dao.DiskDAO;
 import disks2.domain.Disk;
-import org.springframework.beans.factory.annotation.Autowired;
+import disks2.domain.User;
+import disks2.repository.DiskRepository;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,47 +14,75 @@ import java.util.List;
  */
 @Service
 public class DiskServiceImpl implements DiskService {
-    @Autowired
-    private DiskDAO diskDAO;
+    @Resource
+    private DiskRepository diskRepository;
 
     @Transactional
+    @Override
     public List<Disk> listOwnDisks(Integer userId) {
-        return diskDAO.listOwnDisks(userId);
+        return diskRepository.listOwnDisks(userId);
     }
     @Transactional
+    @Override
     public List<Disk> listFreeDisks()
     {
-        return diskDAO.listFreeDisks();
+        return diskRepository.listFreeDisks();
     }
 
-
     @Transactional
+    @Override
     public void takeFreeDisk(Integer userId, Integer diskId) {
-        diskDAO.takeFreeDisk(userId, diskId);
-    }
-    @Transactional
-    public void returnOwnDisk(Integer userId, Integer diskId) {
-        diskDAO.returnOwnDisk(userId,diskId);
-    }
-    @Transactional
-    public void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId) {
-        diskDAO.takeFreeDiskFromUser(userId,diskId,fromId);
-    }
-    @Transactional
-    public void returnDiskToUser(Integer userId, Integer diskId, Integer fromId) {
-        diskDAO.returnDiskToUser(userId,diskId,fromId);
+        User user = diskRepository.getUserById(userId);
+        Disk disk = diskRepository.getDiskById(diskId);
+        disk.setUser(user);
+        diskRepository.saveAndFlush(disk);
     }
 
     @Transactional
+    @Override
+    public void returnOwnDisk(Integer userId, Integer diskId) {
+        User user = diskRepository.getUserById(userId);
+        Disk disk = diskRepository.getDiskByIdAndUser(user,diskId);
+        disk.setUser(null);
+        diskRepository.saveAndFlush(disk);
+    }
+
+    @Transactional
+    @Override
+    public void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId) {
+        User user = diskRepository.getUserById(userId);
+        User fromUser = diskRepository.getUserById(fromId);
+        Disk disk = diskRepository.getDiskByIdAndUser(fromUser,diskId);
+        disk.setUser(user);
+        disk.setFromUser(fromUser);
+        diskRepository.saveAndFlush(disk);
+    }
+
+    @Transactional
+    @Override
+    public void returnDiskToUser(Integer userId, Integer diskId, Integer fromId) {
+        User user = diskRepository.getUserById(userId);
+        User fromUser = diskRepository.getUserById(fromId);
+        Disk disk = diskRepository.getDiskByIdAndUser(user,diskId);
+        disk.setUser(fromUser);
+        disk.setFromUser(null);
+        diskRepository.saveAndFlush(disk);
+    }
+
+
+    @Transactional
+    @Override
     public List<Disk> listOwnDisksFromAllUsers(Integer currentUserId) {
-        return diskDAO.listOwnDisksFromAllUsers(currentUserId);
+        return diskRepository.listOwnDisksFromAllUsers(currentUserId);
     }
     @Transactional
+    @Override
     public List<Disk> listTakenDisksByUser(Integer userId) {
-        return diskDAO.listTakenDisksByUser(userId);
+        return diskRepository.listTakenDisksByUser(userId);
     }
     @Transactional
+    @Override
     public List<Disk> listTakenDisksFromUser(Integer userId) {
-        return diskDAO.listTakenDisksFromUser(userId);
+        return diskRepository.listTakenDisksFromUser(userId);
     }
 }
