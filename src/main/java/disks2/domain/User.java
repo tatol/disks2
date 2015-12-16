@@ -1,8 +1,11 @@
 package disks2.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by adminvl on 21.10.2015.
@@ -14,8 +17,12 @@ public class User implements Serializable {
     @Column(name = "id")
     @GeneratedValue
     private Integer id;
+    @Column(name = "enabled")
+    private boolean enabled;
+    @NotEmpty
     @Column(name = "login")
     private String login;
+    @NotEmpty
     @Column(name = "password")
     private String password;
 
@@ -24,6 +31,25 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
     private List<Disk> givenList;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<UserRole> roles;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+    }
 
     public List<Disk> getGivenList() {
         return givenList;
@@ -64,5 +90,4 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

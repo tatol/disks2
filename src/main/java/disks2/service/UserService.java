@@ -1,10 +1,16 @@
 package disks2.service;
 
 import disks2.domain.User;
+import disks2.domain.UserRole;
+
+import java.util.List;
+import java.util.Set;
 
 /**
- * Created by adminvl on 21.10.2015.
+ * Created by adminvl on 10.12.2015.
  */
 public interface UserService {
-    User getUser(String login, String password);
+    User getUserByName(String userName);
+    void addUser(User user);
+    List<User> listUser();
 }

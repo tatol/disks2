@@ -11,8 +11,8 @@
 <body>
 <h2>Список свободных дисков</h2>
 
-
-<c:if  test="${!empty listFreeDisks}">
+<c:if test="${pageContext.request.userPrincipal.name != null}">
+ <c:if  test="${!empty listFreeDisks}">
 
     <table border="1px" cellpadding="8px" class="data">
         <tr>
@@ -27,10 +27,10 @@
             </tr>
         </c:forEach>
     </table>
-</c:if>
+ </c:if>
 <h2>Список свободных дисков всех пользователей</h2>
 
-<c:if  test="${!empty listOwnDisksFromAllUsers}">
+ <c:if  test="${!empty listOwnDisksFromAllUsers}">
 
     <table border="1px" cellpadding="8px" class="data">
         <tr>
@@ -48,7 +48,23 @@
             </tr>
         </c:forEach>
     </table>
+ </c:if>
+    <c:url value="/logout" var="logoutUrl" />
+    <form action="${logoutUrl}" method="post" id="logoutForm">
+        <input type="hidden" name="${_csrf.parameterName}"
+               value="${_csrf.token}" />
+    </form>
+    <script>
+        function formSubmit() {
+            document.getElementById("logoutForm").submit();
+        }
+    </script>
+
+        <h2>
+            Пользователь : ${pageContext.request.userPrincipal.name} | <a
+                href="javascript:formSubmit()"> Выйти</a>
+        </h2>
+    <h3><a href="/">Назад</a></h3>
 </c:if>
-<h3><a href="/login/listTakenDisksByUser">Взятые диски</a></h3>
 </body>
 </html>
