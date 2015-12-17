@@ -121,7 +121,7 @@ public class DiskController {
             userService.addUser(newUser);
             userRoleService.addUserRole(userRole);
         }
-        catch (NullPointerException e)
+        catch (RuntimeException e)
         {
             return new ModelAndView("redirect:/admin");
         }
