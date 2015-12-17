@@ -1,5 +1,6 @@
 package disks2.config;
 
+import org.flywaydb.core.Flyway;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -49,7 +50,17 @@ public class DataConfig {
         return dataSource;
     }
 
-    @Bean
+    @Bean(initMethod = "migrate")
+    Flyway flyway() {
+        Flyway flyway = new Flyway();
+        flyway.setBaselineOnMigrate(true);
+        flyway.setLocations("migrations");
+        flyway.setDataSource(dataSource());
+        return flyway;
+    }
+
+
+    @Bean @DependsOn("flyway")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
