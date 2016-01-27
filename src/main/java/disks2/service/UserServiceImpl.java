@@ -3,6 +3,7 @@ package disks2.service;
 import disks2.domain.User;
 import disks2.domain.UserRole;
 import disks2.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,19 @@ import java.util.Set;
  * Created by adminvl on 10.12.2015.
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Resource
+    @Autowired
     private UserRepository userRepository;
 
-    @Transactional
+
     @Override
     public User getUserByName(String userName) {
         return userRepository.getUserByName(userName);
     }
 
-    @Transactional
+
     @Override
     public void addUser(User user) {
         Set<UserRole> userRoles = user.getRoles();
@@ -45,7 +48,6 @@ public class UserServiceImpl implements UserService {
         userRepository.saveAndFlush(user);
     }
 
-    @Transactional
     @Override
     public List<User> listUser() {
         return userRepository.findAll();

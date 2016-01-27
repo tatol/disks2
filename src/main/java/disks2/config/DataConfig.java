@@ -23,7 +23,6 @@ import java.util.Properties;
 @ComponentScan("disks2")
 @PropertySource("classpath:app.properties")
 @EnableJpaRepositories("disks2.repository")
-@Import({ SecurityConfig.class })
 public class DataConfig {
 
     private static final String PROP_DATABASE_DRIVER = "db.driver";
@@ -78,15 +77,6 @@ public class DataConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return transactionManager;
-    }
-
-    @Bean
-    public UrlBasedViewResolver setupViewResolver() {
-        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-        resolver.setPrefix("/WEB-INF/pages/");
-        resolver.setSuffix(".jsp");
-        resolver.setViewClass(JstlView.class);
-        return resolver;
     }
 
     private Properties getHibernateProperties() {

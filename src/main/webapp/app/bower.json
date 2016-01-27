@@ -1,0 +1,13 @@
+{
+    "name": "disks2",
+    "version": "1.0",
+    "description": "Sample Spring MVC | AngularJs project - disks2",
+    "dependencies": {
+        "angular": "1.4.x",
+        "angular-mocks": "1.4.x",
+        "jquery": "~2.1.1",
+        "bootstrap": "~3.1.1",
+        "angular-route": "1.4.x",
+        "angular-resource": "1.4.x"
+    }
+}
