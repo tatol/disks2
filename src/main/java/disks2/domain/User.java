@@ -1,5 +1,6 @@
 package disks2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -18,20 +19,25 @@ public class User implements Serializable {
     @GeneratedValue
     private Integer id;
     @Column(name = "enabled")
+    @JsonIgnore
     private boolean enabled;
     @NotEmpty
     @Column(name = "login")
     private String login;
     @NotEmpty
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Disk> takenList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
     private List<Disk> givenList;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<UserRole> roles;
 

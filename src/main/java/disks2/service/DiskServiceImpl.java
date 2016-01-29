@@ -4,6 +4,8 @@ import disks2.domain.Disk;
 import disks2.domain.User;
 import disks2.repository.DiskRepository;
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,23 +15,23 @@ import java.util.List;
  * Created by adminvl on 21.10.2015.
  */
 @Service
+@Transactional
 public class DiskServiceImpl implements DiskService {
     @Resource
+    @Autowired
     private DiskRepository diskRepository;
 
-    @Transactional
     @Override
     public List<Disk> listOwnDisks(Integer userId) {
         return diskRepository.listOwnDisks(userId);
     }
-    @Transactional
+
     @Override
     public List<Disk> listFreeDisks()
     {
         return diskRepository.listFreeDisks();
     }
 
-    @Transactional
     @Override
     public void takeFreeDisk(Integer userId, Integer diskId) {
         User user = diskRepository.getUserById(userId);
@@ -38,7 +40,6 @@ public class DiskServiceImpl implements DiskService {
         diskRepository.saveAndFlush(disk);
     }
 
-    @Transactional
     @Override
     public void returnOwnDisk(Integer userId, Integer diskId) {
         User user = diskRepository.getUserById(userId);
@@ -47,7 +48,6 @@ public class DiskServiceImpl implements DiskService {
         diskRepository.saveAndFlush(disk);
     }
 
-    @Transactional
     @Override
     public void takeFreeDiskFromUser(Integer userId, Integer diskId, Integer fromId) {
         User user = diskRepository.getUserById(userId);
@@ -58,7 +58,6 @@ public class DiskServiceImpl implements DiskService {
         diskRepository.saveAndFlush(disk);
     }
 
-    @Transactional
     @Override
     public void returnDiskToUser(Integer userId, Integer diskId, Integer fromId) {
         User user = diskRepository.getUserById(userId);
@@ -70,17 +69,16 @@ public class DiskServiceImpl implements DiskService {
     }
 
 
-    @Transactional
     @Override
     public List<Disk> listOwnDisksFromAllUsers(Integer currentUserId) {
         return diskRepository.listOwnDisksFromAllUsers(currentUserId);
     }
-    @Transactional
+
     @Override
     public List<Disk> listTakenDisksByUser(Integer userId) {
         return diskRepository.listTakenDisksByUser(userId);
     }
-    @Transactional
+
     @Override
     public List<Disk> listTakenDisksFromUser(Integer userId) {
         return diskRepository.listTakenDisksFromUser(userId);
