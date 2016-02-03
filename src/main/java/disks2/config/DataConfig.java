@@ -23,6 +23,7 @@ import java.util.Properties;
 @ComponentScan("disks2")
 @PropertySource("classpath:app.properties")
 @EnableJpaRepositories("disks2.repository")
+@Import({ SecurityConfig.class })
 public class DataConfig {
 
     private static final String PROP_DATABASE_DRIVER = "db.driver";

@@ -26,7 +26,7 @@ public class User implements Serializable {
     private String login;
     @NotEmpty
     @JsonIgnore
-    @Column(name = "password")
+    @Column(name = "password", length = 60)
     private String password;
 
     @JsonIgnore

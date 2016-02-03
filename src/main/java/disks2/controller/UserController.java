@@ -1,15 +1,22 @@
 package disks2.controller;
 
+import disks2.domain.Disk;
 import disks2.domain.User;
 import disks2.domain.UserRole;
 import disks2.service.UserRoleService;
 import disks2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,26 +32,10 @@ public class UserController {
     private UserRoleService userRoleService;
 
 
-    @RequestMapping(value="/addUser", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("newUser") User newUser, BindingResult result,
-                                @RequestParam("role") String role) {
-        try {
-            newUser.setEnabled(true);
-            Set<UserRole> userRoles = new HashSet<>();
-            UserRole userRole = new UserRole();
-            userRole.setRole(role);
-            userRole.setUser(newUser);
-            userRoles.add(userRole);
-            newUser.setRoles(userRoles);
+    @RequestMapping(value = "/login")
+    public ResponseEntity<User> getUser(@RequestParam(value = "login", required = false) String login, @RequestParam(value = "password", required = false) String password) {
 
-            userService.addUser(newUser);
-            userRoleService.addUserRole(userRole);
-        }
-        catch (RuntimeException e)
-        {
-            return new ModelAndView("redirect:/admin");
-        }
-        return new ModelAndView("redirect:/admin");
+        User user = userService.getUserByName(login);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
-
 }

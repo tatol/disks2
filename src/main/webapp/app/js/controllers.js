@@ -21,23 +21,56 @@ phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Ph
     };
   }]);
 
-phonecatControllers.controller('OWN', ['$scope', 'DiskService',
-  function($scope, DiskService) {
-    var self = this;
-    self.disk={id:'',name:''};
-    self.disks=[];
-    self.disk.user={id:'',login:''};
-    self.disk.fromuser={id:'',login:''};
-    self.listOwnDisks = function(){
-      DiskService.listOwnDisks()
-          .then(
-          function(d) {
-            self.disks = d;
-          },
-          function(errResponse){
-            console.error('Error while fetching Currencies');
-          }
-      );
-    };
-
+phonecatControllers.controller('ListOwnDisksCtrl', ['$scope', 'ListOwnDisksService',
+  function($scope, ListOwnDisksService) {
+    ListOwnDisksService.success(function(data) {
+      $scope.disks = data;
+    });
   }]);
+
+phonecatControllers.controller('ListFreeDisksCtrl', ['$scope', 'ListFreeDisksService','TakeService',
+  function($scope, ListFreeDisksService, TakeService) {
+    ListFreeDisksService.success(function(data) {
+      $scope.disks = data;
+    });
+    $scope.takeFreeDisk = function(id) {
+      TakeService.takeFreeDisk(id).success();
+    }
+  }]);
+
+phonecatControllers.controller('ListOwnDisksFromAllUsersCtrl', ['$scope', 'ListOwnDisksFromAllUsersService',
+  function($scope, ListOwnDisksFromAllUsersService) {
+    ListOwnDisksFromAllUsersService.success(function(data) {
+      $scope.disks = data;
+    });
+  }]);
+
+phonecatControllers.controller('ListTakenDisksByUserCtrl', ['$scope', 'ListTakenDisksByUserService',
+  function($scope, ListTakenDisksByUserService) {
+    ListTakenDisksByUserService.success(function(data) {
+      $scope.disks = data;
+    });
+  }]);
+
+phonecatControllers.controller('ListTakenDisksFromUserCtrl', ['$scope', 'ListTakenDisksFromUserService',
+  function($scope, ListTakenDisksFromUserService) {
+    ListTakenDisksFromUserService.success(function(data) {
+      $scope.disks = data;
+    });
+  }]);
+
+phonecatControllers.controller('MenuCtrl', ['$scope','$location',
+  function($scope, $location) {
+    $scope.go= function (path){
+      $location.path( path );
+    }
+  }]);
+
+phonecatControllers.controller("LoginCtrl", function($scope, sessionService, $location,  accountService) {
+  $scope.login = function() {
+          sessionService.login($scope.account).success(function() {
+            $location.path( '/menu' )
+          });
+  };
+});
+

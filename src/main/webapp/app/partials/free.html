@@ -1,0 +1,22 @@
+<table border="1px" cellpadding="8px" class="data">
+    <tr>
+        <th>diskID</th>
+        <th>disk</th>
+    </tr>
+    <tr ng-repeat="disk in disks">
+        <td>{{disk.id}}</td>
+        <td>{{disk.name}}</td>
+        <td><button type="button" ng-click="takeFreeDisk(disk.id)">Take</button></td>
+    </tr>
+</table>
+
+<table border="1px" cellpadding="8px" class="data" ng-controller="ListOwnDisksFromAllUsersCtrl">
+    <tr>
+        <th>diskID</th>
+        <th>disk</th>
+    </tr>
+    <tr ng-repeat="disk in disks">
+        <td>{{disk.id}}</td>
+        <td>{{disk.name}}</td>
+    </tr>
+</table>
