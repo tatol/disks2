@@ -70,24 +70,29 @@ public class DiskController {
     }
 
     @RequestMapping(value="/takeFreeDisk/{id}",method = RequestMethod.PUT)
-    public void takeFreeDisk(@PathVariable Integer id, Principal principal)
+    public ResponseEntity<List<Disk>> takeFreeDisk(@PathVariable Integer id, Principal principal)
     {
         diskService.takeFreeDisk(getCurrentUserId(principal), id);
+        return listFreeDisks(principal);
     }
     @RequestMapping(value="/takeFreeDiskFromUser/{diskId}/{fromId}",method = RequestMethod.PUT)
-    public void takeFreeDiskFromUser(@PathVariable Integer diskId,@PathVariable Integer fromId, Principal principal)
+    public ResponseEntity<List<Disk>> takeFreeDiskFromUser(@PathVariable Integer diskId,@PathVariable Integer fromId,
+                                                           Principal principal)
     {
         diskService.takeFreeDiskFromUser(getCurrentUserId(principal),diskId,fromId);
+        return listOwnDisksFromAllUsers(principal);
     }
-    @RequestMapping(value="returnDiskToUser/{diskId}/{fromId}",method = RequestMethod.PUT)
-    public void returnDiskToUser(@PathVariable Integer diskId,@PathVariable Integer fromId, Principal principal)
+    @RequestMapping(value="/returnDiskToUser/{diskId}/{fromId}",method = RequestMethod.PUT)
+    public ResponseEntity<List<Disk>> returnDiskToUser(@PathVariable Integer diskId,@PathVariable Integer fromId, Principal principal)
     {
         diskService.returnDiskToUser(getCurrentUserId(principal),diskId,fromId);
+        return listTakenDisksByUser(principal);
     }
-    @RequestMapping(value="returnOwnDisk/{id}/",method = RequestMethod.PUT)
-    public void returnOwnDisk(@PathVariable Integer id, Principal principal)
+    @RequestMapping(value="/returnOwnDisk/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<List<Disk>> returnOwnDisk(@PathVariable Integer id, Principal principal)
     {
         diskService.returnOwnDisk(getCurrentUserId(principal), id);
+        return listOwnDisks(principal);
     }
 
 }

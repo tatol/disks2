@@ -51,8 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authSuccess)
                 .failureHandler(authFailure)
                 .and()
-                .authorizeRequests().antMatchers("/**")
-                .permitAll();
+                .authorizeRequests()
+                /*.antMatchers("/app/bower_components*//**").permitAll()
+                .antMatchers("/app/js*//**").permitAll()
+                .antMatchers("/app/css*//**").permitAll()
+                .antMatchers("/app/partials/login.html").permitAll()
+                .antMatchers("/app/index.html").permitAll()*/
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Bean

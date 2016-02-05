@@ -2,52 +2,76 @@
 
 /* Services */
 
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var disks2Services = angular.module('disks2Services', ['ngResource']);
 
-phonecatServices.factory('Phone', ['$resource',
-  function($resource){
-    return $resource('app/phones/:phoneId.json', {}, {
-      query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
-    });
-  }]);
-
-phonecatServices.factory('ListOwnDisksService', ['$http',
+disks2Services.factory('ListOwnDisksService', ['$http',
 function($http){
     return $http.get('http://localhost:8081/listOwnDisks');
 }]);
 
-phonecatServices.factory('ListFreeDisksService', ['$http',
+disks2Services.factory('ListFreeDisksService', ['$http',
 function($http){
     return $http.get('http://localhost:8081/listFreeDisks');
 }]);
 
-phonecatServices.factory('ListOwnDisksFromAllUsersService', ['$http',
+disks2Services.factory('ListOwnDisksFromAllUsersService', ['$http',
 function($http){
     return $http.get('http://localhost:8081/listOwnDisksFromAllUsers');
 }]);
 
-phonecatServices.factory('ListTakenDisksByUserService', ['$http',
+disks2Services.factory('ListTakenDisksByUserService', ['$http',
 function($http){
     return $http.get('http://localhost:8081/listTakenDisksByUser');
 }]);
 
-phonecatServices.factory('ListTakenDisksFromUserService', ['$http',
+disks2Services.factory('ListTakenDisksFromUserService', ['$http',
 function($http){
     return $http.get('http://localhost:8081/listTakenDisksFromUser');
 }]);
 
-phonecatServices.factory('TakeService', ['$http',
+disks2Services.factory('TakeService', ['$http',
     function($http){
         return {
             takeFreeDisk:function(id)
             {
               return  $http.put('http://localhost:8081/takeFreeDisk/'+id);
+            },
+            takeFreeDiskFromUser:function(id,fromId)
+            {
+                return  $http.put('http://localhost:8081/takeFreeDiskFromUser/'+id+'/'+fromId);
+            },
+            returnOwnDisk:function(id)
+            {
+                return  $http.put('http://localhost:8081/returnOwnDisk/'+id);
+            },
+            returnDiskToUser:function(id,fromId)
+            {
+                return  $http.put('http://localhost:8081/returnDiskToUser/'+id+'/'+fromId);
             }
         }
 
     }]);
 
-phonecatServices.factory('sessionService', function($http) {
+disks2Services.factory('ListTakenDisksFromUserService', ['$http',
+    function($http){
+        return $http.get('http://localhost:8081/listTakenDisksFromUser');
+    }]);
+
+disks2Services.factory('AdminService', ['$http',
+    function($http){
+        return $http.get('http://localhost:8081/admin');
+    }]);
+
+disks2Services.factory('CreateUserService', ['$http',
+    function($http){
+        return{
+        createUser:function(user) {
+          return  $http.post('http://localhost:8081/admin/',user);
+        }
+        }
+    }]);
+
+disks2Services.factory('sessionService', function($http) {
     var session = {};
     session.login = function(data) {
         return $http.post("http://localhost:8081/login", "username=" + data.login +
@@ -67,23 +91,4 @@ phonecatServices.factory('sessionService', function($http) {
         return localStorage.getItem("session") !== null;
     };
     return session;
-});
-
-phonecatServices.factory('accountService', function($resource) {
-    var service = {};
-    service.register = function(account, success, failure) {
-        var Account = $resource("/basic-web-app/rest/accounts");
-        Account.save({}, account, success, failure);
-    };
-    service.getAccountById = function(accountId) {
-        var Account = $resource("/basic-web-app/rest/accounts/:paramAccountId");
-        return Account.get({paramAccountId:accountId}).$promise;
-    };
-    service.getAllAccounts = function() {
-        var Account = $resource("/login");
-        return Account.get().$promise.then(function(data) {
-            return data.accounts;
-        });
-    };
-    return service;
 });

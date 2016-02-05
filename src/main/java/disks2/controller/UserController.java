@@ -32,10 +32,23 @@ public class UserController {
     private UserRoleService userRoleService;
 
 
-    @RequestMapping(value = "/login")
-    public ResponseEntity<User> getUser(@RequestParam(value = "login", required = false) String login, @RequestParam(value = "password", required = false) String password) {
+    @RequestMapping(value = "/admin")
+    public ResponseEntity<List<User>> listUser() {
+        List<User> userList = userService.listUser();
+        return new ResponseEntity<List<User>>(userList,HttpStatus.OK);
+    }
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public ResponseEntity<List<User>> createUser(@RequestBody User user) {
+        /*user.setEnabled(true);
+        Set<UserRole> userRoles = new HashSet<>();
+        UserRole userRole = new UserRole();
+        userRole.setRole(role);
+        userRole.setUser(user);
+        userRoles.add(userRole);
+        user.setRoles(userRoles);*/
 
-        User user = userService.getUserByName(login);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        userService.addUser(user);
+/*        userRoleService.addUserRole(userRole);*/
+        return listUser();
     }
 }

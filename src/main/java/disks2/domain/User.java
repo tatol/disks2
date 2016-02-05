@@ -37,7 +37,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
     private List<Disk> givenList;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<UserRole> roles;
 

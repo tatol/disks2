@@ -1,5 +1,6 @@
 package disks2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class UserRole implements Serializable {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @NotEmpty
     @Column(name = "role")

@@ -2,27 +2,19 @@
 
 /* App Module */
 
-var phonecatApp = angular.module('phonecatApp', [
+var disks2App = angular.module('disks2App', [
   'ngRoute',
-  'phonecatControllers',
-  'phonecatFilters',
-  'phonecatServices'
+  'disks2Controllers',
+  'disks2Filters',
+  'disks2Services'
 ]);
 
-phonecatApp.config(['$routeProvider',
+disks2App.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/phones', {
-        templateUrl: 'app/partials/phone-list.html',
-        controller: 'PhoneListCtrl'
-      }).
-      when('/phones/:phoneId', {
-        templateUrl: 'app/partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
-      }).
         when('/listOwnDisks', {
-          templateUrl: 'app/partials/own.html',
-          controller: 'ListOwnDisksCtrl'
+            templateUrl: 'app/partials/own.html',
+            controller: 'ListOwnDisksCtrl'
         }).
         when('/listFreeDisks', {
                   templateUrl: 'app/partials/free.html',
@@ -44,7 +36,11 @@ phonecatApp.config(['$routeProvider',
             templateUrl: 'app/partials/login.html',
             controller: 'LoginCtrl'
         }).
+        when('/admin', {
+            templateUrl: 'app/partials/admin.html',
+            controller: 'AdminCtrl'
+        }).
       otherwise({
-        redirectTo: '/phones'
+        redirectTo: '/login'
       });
   }]);

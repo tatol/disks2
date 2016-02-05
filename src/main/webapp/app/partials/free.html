@@ -18,5 +18,6 @@
     <tr ng-repeat="disk in disks">
         <td>{{disk.id}}</td>
         <td>{{disk.name}}</td>
+        <td><button type="button" ng-click="takeFreeDiskFromUser(disk.id,disk.user.id)">Take</button></td>
     </tr>
 </table>

@@ -1,0 +1,55 @@
+<table border="1px" cellpadding="8px" class="data">
+    <tr>
+        <th>userID</th>
+        <th>user</th>
+        <th>roles</th>
+    </tr>
+        <tr ng-repeat="user in users">
+            <td>{{user.id}}</td>
+            <td>{{user.login}}</td>
+            <td ng-repeat="role in user.roles">
+                {{role.role}}
+            </td>
+        </tr>
+</table>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">User Registration Form </span></div>
+        <div class="formcontainer">
+            <form ng-submit="submit()" name="myForm" class="form-horizontal">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Login</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="user.login"class="username form-control input-sm" placeholder="Enter your name"/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Address</label>
+                        <div class="col-md-7">
+                            <input type="password" ng-model="user.password"class="form-control input-sm" placeholder="Enter your password."/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Role</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="role" placeholder="Enter your role"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <input type="submit"  value="ADD" class="btn btn-primary btn-sm">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

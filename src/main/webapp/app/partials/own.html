@@ -6,6 +6,7 @@
     <tr ng-repeat="disk in disks">
         <td>{{disk.id}}</td>
         <td>{{disk.name}}</td>
+        <td><button type="button" ng-click="returnOwnDisk(disk.id)">Return</button></td>
     </tr>
 </table>
 
