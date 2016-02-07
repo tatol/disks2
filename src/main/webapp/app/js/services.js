@@ -4,29 +4,25 @@
 
 var disks2Services = angular.module('disks2Services', ['ngResource']);
 
-disks2Services.factory('ListOwnDisksService', ['$http',
+disks2Services.factory('DisksService', ['$http',
 function($http){
-    return $http.get('http://localhost:8081/listOwnDisks');
-}]);
-
-disks2Services.factory('ListFreeDisksService', ['$http',
-function($http){
-    return $http.get('http://localhost:8081/listFreeDisks');
-}]);
-
-disks2Services.factory('ListOwnDisksFromAllUsersService', ['$http',
-function($http){
-    return $http.get('http://localhost:8081/listOwnDisksFromAllUsers');
-}]);
-
-disks2Services.factory('ListTakenDisksByUserService', ['$http',
-function($http){
-    return $http.get('http://localhost:8081/listTakenDisksByUser');
-}]);
-
-disks2Services.factory('ListTakenDisksFromUserService', ['$http',
-function($http){
-    return $http.get('http://localhost:8081/listTakenDisksFromUser');
+    return {
+        listOwnDisks: function () {
+        return $http.get('http://localhost:8081/listOwnDisks');
+        },
+        listFreeDisks: function () {
+            return $http.get('http://localhost:8081/listFreeDisks');
+        },
+        listOwnDisksFromAllUsers: function () {
+            return $http.get('http://localhost:8081/listOwnDisksFromAllUsers');
+        },
+        listTakenDisksByUser: function () {
+            return $http.get('http://localhost:8081/listTakenDisksByUser');
+        },
+        listTakenDisksFromUser: function () {
+            return $http.get('http://localhost:8081/listTakenDisksFromUser');
+        }
+    }
 }]);
 
 disks2Services.factory('TakeService', ['$http',
@@ -52,14 +48,13 @@ disks2Services.factory('TakeService', ['$http',
 
     }]);
 
-disks2Services.factory('ListTakenDisksFromUserService', ['$http',
-    function($http){
-        return $http.get('http://localhost:8081/listTakenDisksFromUser');
-    }]);
-
 disks2Services.factory('AdminService', ['$http',
     function($http){
-        return $http.get('http://localhost:8081/admin');
+        return {
+            admin: function (user) {
+                return $http.get('http://localhost:8081/admin');
+            }
+        }
     }]);
 
 disks2Services.factory('CreateUserService', ['$http',

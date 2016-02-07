@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="com.tatol:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="com.tatol.war">
+      <element id="artifact" artifact-name="com.tatol:war exploded" />
+    </root>
+  </artifact>
+</component>

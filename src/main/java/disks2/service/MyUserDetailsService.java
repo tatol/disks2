@@ -38,7 +38,6 @@ public class MyUserDetailsService implements UserDetailsService {
         disks2.domain.User user = userRepository.getUserByName(username);
         List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
 
-
         return buildUserForAuthentication(user, authorities);
     }
 
