@@ -13,7 +13,7 @@ mvn tomcat7:run
 перейти по ссылке http://localhost:8081/
 ## Сборка проекта.
 ```
-bower install(внутри webapp/app)```  ```mvn clean install
+bower install(внутри webapp/app) mvn clean install
 ```
 ## Установка базы данных.
 Для установки необходимо создать пользователя бд, с логином root и паролем root, а так же создать пустую бд disks2. 
