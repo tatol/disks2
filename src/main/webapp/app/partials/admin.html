@@ -21,7 +21,7 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-2 control-lable">Login</label>
                         <div class="col-md-7">
-                            <input type="text" ng-model="user.login"class="username form-control input-sm" placeholder="Enter your name"/>
+                            <input type="text" ng-model="credentials.login"class="username form-control input-sm" placeholder="Enter your name"/>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-2 control-lable">Address</label>
                         <div class="col-md-7">
-                            <input type="password" ng-model="user.password"class="form-control input-sm" placeholder="Enter your password."/>
+                            <input type="password" ng-model="credentials.password"class="form-control input-sm" placeholder="Enter your password."/>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,8 @@
                     <div class="form-group col-md-12">
                         <label class="col-md-2 control-lable">Role</label>
                         <div class="col-md-7">
-                            <input type="text" ng-model="role" placeholder="Enter your role"/>
+                            <select ng-options="option.role for option in roles.availableOptions track by option.id"
+                                    ng-model="roles.selectedOption"></select>
                         </div>
                     </div>
                 </div>

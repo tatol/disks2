@@ -1,6 +1,7 @@
 <ul>
+    <li ng-show=isAdmin()><button ng-click="go('/admin')">Администратор</button></li>
     <li><button ng-click="go('/listOwnDisks')">Свои диски</button></li>
     <li><button ng-click="go('/listFreeDisks')">Свободные диски</button></li>
     <li><button ng-click="go('/listTakenDisksByUser')">Диски взятые пользователем</button></li>
-    <li><button ng-click="go('/listTakenDisksFromUser')">Диски взятые у пользователя</button></>
+    <li><button ng-click="go('/listTakenDisksFromUser')">Диски взятые у пользователя</button></li>
 </ul>

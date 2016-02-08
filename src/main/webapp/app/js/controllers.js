@@ -29,8 +29,8 @@ disks2Controllers.controller('ListFreeDisksCtrl', ['$scope', 'DisksService','Tak
       };
       $scope.listFreeDisks();
     $scope.takeFreeDisk = function(id) {
-      TakeService.takeFreeDisk(id).success(function (data) {
-            $scope.disks = data;
+      TakeService.takeFreeDisk(id).success(function () {
+              $scope.listFreeDisks();
           }
       );
     };
@@ -45,8 +45,8 @@ disks2Controllers.controller('ListOwnDisksFromAllUsersCtrl', ['$scope', 'DisksSe
       };
       $scope.listOwnDisksFromAllUsers();
     $scope.takeFreeDiskFromUser = function(id,fromId) {
-      TakeService.takeFreeDiskFromUser(id,fromId).success(function (data) {
-            $scope.disks = data;
+      TakeService.takeFreeDiskFromUser(id,fromId).success(function () {
+              $scope.listOwnDisksFromAllUsers();
           }
       );
     };
@@ -61,8 +61,8 @@ disks2Controllers.controller('ListTakenDisksByUserCtrl', ['$scope', 'DisksServic
       };
       $scope.listTakenDisksByUser();
     $scope.returnDiskToUser = function(id,fromId) {
-      TakeService.returnDiskToUser(id,fromId).success(function (data) {
-            $scope.disks = data;
+      TakeService.returnDiskToUser(id,fromId).success(function () {
+              $scope.listTakenDisksByUser();
           }
       );
     };
@@ -78,11 +78,30 @@ disks2Controllers.controller('ListTakenDisksFromUserCtrl', ['$scope', 'DisksServ
       $scope.listTakenDisksFromUser();
   }]);
 
-disks2Controllers.controller('MenuCtrl', ['$scope','$location',
-  function($scope, $location) {
+disks2Controllers.controller('MenuCtrl', ['$scope','$location','UserService',
+  function($scope, $location, UserService) {
+      $scope.user={id:null, login:"", roles:[]};
       $scope.go = function (path) {
         $location.path(path);
-      }
+      };
+      $scope.getUser = function() {
+          UserService.getUser().success(function (data) {
+              $scope.user = data;
+          });
+      };
+      $scope.isAdmin = function() {
+          var c = $scope.user;
+          for(var i=0; i<$scope.user.roles.length; i++)
+          {
+              if ($scope.user.roles[i].role=="role_admin")
+              {
+                  return true;
+              }
+          }
+          return false;
+      };
+      $scope.getUser();
+
   }]);
 
 disks2Controllers.controller("LoginCtrl", function($scope, sessionService, $location) {
@@ -93,27 +112,34 @@ disks2Controllers.controller("LoginCtrl", function($scope, sessionService, $loca
   };
 });
 
-disks2Controllers.controller('AdminCtrl', ['$scope', 'AdminService','CreateUserService',
-  function($scope, AdminService, CreateUserService) {
+disks2Controllers.controller('AdminCtrl', ['$scope', 'AdminService','UserService',
+  function($scope, AdminService, UserService) {
       $scope.admin = function() {
           AdminService.admin().success(function (data) {
               $scope.users = data;
           });
       };
+
       $scope.admin();
-     $scope.create = function(user) {
-         CreateUserService.createUser(user).success(function (data) {
-                  $scope.users = data;
-              }
-          );
+     $scope.create = function(credentials) {
+         UserService.createUser(credentials).success(function () {
+                 $scope.admin()
+             }
+         );
+      };
+
+      $scope.credentials={login:"", password:"", role:""};
+
+      $scope.roles = {
+          availableOptions: [
+              {id: "1", role: 'role_user'},
+              {id: "2", role: 'role_admin'}
+          ],
+          selectedOption: {id: "1", role: 'role_user'} //This sets the default value of the select in the ui
       };
       $scope.submit = function() {
-          var role={id:null,role:''};
-          var roleMas=[];
-          role.role=$scope.role;
-          roleMas.push(role);
-          $scope.user.roles=roleMas;
-          $scope.create($scope.user);
+          $scope.credentials.role=$scope.roles.selectedOption.role;
+          $scope.create($scope.credentials);
       };
   }]);
 

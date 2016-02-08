@@ -52,12 +52,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authFailure)
                 .and()
                 .authorizeRequests()
-                /*.antMatchers("/app/bower_components*//**").permitAll()
-                .antMatchers("/app/js*//**").permitAll()
-                .antMatchers("/app/css*//**").permitAll()
+                .antMatchers("/app/bower_components/**").permitAll()
+                .antMatchers("/app/js/**").permitAll()
+                .antMatchers("/app/css/**").permitAll()
                 .antMatchers("/app/partials/login.html").permitAll()
-                .antMatchers("/app/index.html").permitAll()*/
-                .antMatchers("/**").permitAll()
+                .antMatchers("/app/index.html").permitAll()
+                .antMatchers("/app/partials/admin.html")
+                .access("hasRole('role_admin')")
                 .anyRequest().authenticated();
     }
 

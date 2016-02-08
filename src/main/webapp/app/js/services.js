@@ -51,19 +51,22 @@ disks2Services.factory('TakeService', ['$http',
 disks2Services.factory('AdminService', ['$http',
     function($http){
         return {
-            admin: function (user) {
+            admin: function () {
                 return $http.get('http://localhost:8081/admin');
             }
         }
     }]);
 
-disks2Services.factory('CreateUserService', ['$http',
+disks2Services.factory('UserService', ['$http',
     function($http){
         return{
-        createUser:function(user) {
-          return  $http.post('http://localhost:8081/admin/',user);
+        createUser:function(credentials) {
+          return  $http.post('http://localhost:8081/admin/',credentials);
+        },
+        getUser:function() {
+                return  $http.get('http://localhost:8081/user');
         }
-        }
+        };
     }]);
 
 disks2Services.factory('sessionService', function($http) {
@@ -78,12 +81,6 @@ disks2Services.factory('sessionService', function($http) {
         }, function(data) {
             alert("error logging in");
         });
-    };
-    session.logout = function() {
-        localStorage.removeItem("session");
-    };
-    session.isLoggedIn = function() {
-        return localStorage.getItem("session") !== null;
     };
     return session;
 });

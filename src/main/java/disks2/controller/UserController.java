@@ -1,5 +1,6 @@
 package disks2.controller;
 
+import disks2.domain.Credentials;
 import disks2.domain.Disk;
 import disks2.domain.User;
 import disks2.domain.UserRole;
@@ -38,17 +39,24 @@ public class UserController {
         return new ResponseEntity<List<User>>(userList,HttpStatus.OK);
     }
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public ResponseEntity<List<User>> createUser(@RequestBody User user) {
-        /*user.setEnabled(true);
+    public void createUser(@RequestBody Credentials credentials) {
+        User newUser = new User();
+        newUser.setEnabled(true);
+        newUser.setLogin(credentials.getLogin());
+        newUser.setPassword(credentials.getPassword());
         Set<UserRole> userRoles = new HashSet<>();
         UserRole userRole = new UserRole();
-        userRole.setRole(role);
-        userRole.setUser(user);
+        userRole.setRole(credentials.getRole());
+        userRole.setUser(newUser);
         userRoles.add(userRole);
-        user.setRoles(userRoles);*/
+        newUser.setRoles(userRoles);
 
-        userService.addUser(user);
-/*        userRoleService.addUserRole(userRole);*/
-        return listUser();
+        userService.addUser(newUser);
+        userRoleService.addUserRole(userRole);
+    }
+    @RequestMapping(value = "/user")
+    public ResponseEntity<User> getUser(Principal principal) {
+        User user = userService.getUserByName(principal.getName());
+        return new ResponseEntity<User>(user,HttpStatus.OK);
     }
 }
